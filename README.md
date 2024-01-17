@@ -1,3 +1,32 @@
+# Instructions
+
+1- install node.js
+
+2- install xampp and run MySQL
+
+3- install composer
+
+4- install laravel
+
+5- open .env file in laravel project and specify database name
+
+6- install vscode database client extension and connect to MySQL in xampp
+
+7- create new database with the same name
+
+8- install laravel passport(go to php.ini and rnable sodium extension)
+
+composer require laravel/passport
+
+php artisan migrate
+
+php artisan passport:install
+
+9- start backend => php artisan serve
+
+10-start frontend => npm start
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
