@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { baseURl, LOGOUT } from "../../constants/API";
+import { baseURL, LOGOUT } from "../../constants/API";
 
 export default function Logout() {
   const cookie = new Cookies();
@@ -8,7 +8,7 @@ export default function Logout() {
 
   async function handleLogout() {
     try {
-      const response = await axios.get(`${baseURl}/${LOGOUT}`, {
+      const response = await axios.get(`${baseURL}/${LOGOUT}`, {
         headers: {
           Authorization: 'Bearer ' + token
         }

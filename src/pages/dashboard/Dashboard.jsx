@@ -5,10 +5,12 @@ import "./dashboard.css";
 
 export default function Dashboard() {
   return (
-    <div className="position-relative dashboard">
+    <div className="dashboard position-relative">
       <SideBar />
-      <TopBar />
-      <Outlet />
+      <div className="d-flex gap-1" style={{marginTop: '70px'}}>
+        <TopBar />
+        <Outlet />
+      </div>
     </div>
   );
 }

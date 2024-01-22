@@ -1,21 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom';
-import App from './App';
-import './index.css';
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import App from "./App";
+import "./index.css";
 import "./assets/styles/button.css";
 import "./assets/styles/loading.css";
 import "./assets/styles/alerts.css";
 import "./assets/styles/google.css";
-import "./pages/auth/auth.css"; 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "./pages/auth/auth.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/fontawesome/all.min.css";
+import MenuContext from "./constants/MenuContext";
+import WindowContext from "./constants/WindowContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <WindowContext>
+      <MenuContext>
+        <Router>
+          <App />
+        </Router>
+      </MenuContext>
+    </WindowContext>
   </React.StrictMode>
 );

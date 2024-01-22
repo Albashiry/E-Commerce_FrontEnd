@@ -1,4 +1,4 @@
-.top-bar{
+.top-bar {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,33 +10,48 @@
   padding: 0 20px;
 }
 
-.side-bar{
-  position: fixed;
+.side-bar {
+  position: sticky;
   top: 70px;
   left: 0;
   background-color: white;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   z-index: 1;
-  height: 100vh;
-  width: 220px;
+  height: 100svh;
 }
 
-.side-bar-link{
+.side-bar-link {
   color: #495057;
   font-size: 18px;
   transition: 0.3s;
-  padding: 10px 8px 10px 15px;
   margin: 0 8px;
   border-radius: 6px;
 }
-.side-bar-link:hover{
+
+.side-bar-link:hover {
   color: black;
 }
-.side-bar a.active{
+
+.side-bar a.active {
   background-color: #f2f3fe;
   color: #038edc;
 }
-.side-bar .active:hover{color: #038edc;}
-.side-bar a{
+
+.side-bar .active:hover {
+  color: #038edc;
+}
+
+.side-bar a {
   text-decoration: none !important;
+}
+
+.users-table {
+  position: absolute;
+  top: 4rem;
+  left: 15rem;
+  width: calc(100% - 15rem);
+}
+
+@media (max-width: 992px) {
+  
 }

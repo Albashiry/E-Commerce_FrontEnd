@@ -38,9 +38,11 @@
   font-family: "Lato", sans-serif;
   box-shadow: 0 0 10px rgb(153, 153, 153) inset;
 }
-.form-custom input:focus{
+
+.form-custom input:focus {
   box-shadow: 0 0 10px rgb(153, 153, 153) inset;
 }
+
 .form-custom input:focus:valid {
   border-bottom: 3px solid green;
 }
@@ -65,6 +67,17 @@
   top: 20px;
 }
 
+.password-box {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  left: 73%;
+}
+
 @media (max-width: 992px) {
   .custom-form {
     width: 100%;
@@ -80,5 +93,9 @@
   .inner-from,
   .form-custom input {
     width: 100%;
+  }
+
+  .password-toggle-icon {
+    left: 93%;
   }
 }

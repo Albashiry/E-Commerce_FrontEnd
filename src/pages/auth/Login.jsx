@@ -1,15 +1,18 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import Loading from "../../components/Loading";
-import { baseURl, LOGIN } from "../../constants/API";
+import { baseURL, LOGIN } from "../../constants/API";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [err, setErr] = useState("");
 
   const [loading, setLoadig] = useState(false);
+
+  const navigate = useNavigate();
 
   const cookie = new Cookies();
 
@@ -21,13 +24,13 @@ export default function Login() {
     e.preventDefault();
     setLoadig(true);
     try {
-      const response = await axios.post(`${baseURl}/${LOGIN}`, {
+      const response = await axios.post(`${baseURL}/${LOGIN}`, {
         email: form.email,
         password: form.password
       });
       const token = response.data.token;
       cookie.set("e-commerce", token);
-      window.location.pathname = "/users";
+      navigate('/dashboard/users', { replace: true }); // window.location.pathname = "/users";
     }
     catch (error) {
       (error.response.status === 401) ? setErr("Wrong email or password") : setErr("Internal server error");
@@ -36,6 +39,20 @@ export default function Login() {
       setLoadig(false);
     }
   }
+
+  const passwordFieldRef = useRef(null);
+  const togglePasswordRef = useRef(null);
+  const handleTogglePassword = () => {
+    if (passwordFieldRef.current.type === 'password') {
+      passwordFieldRef.current.type = 'text';
+      togglePasswordRef.current.classList.remove("fa-eye");
+      togglePasswordRef.current.classList.add("fa-eye-slash");
+    } else {
+      passwordFieldRef.current.type = 'password';
+      togglePasswordRef.current.classList.remove("fa-eye-slash");
+      togglePasswordRef.current.classList.add("fa-eye");
+    }
+  };
 
   return (
     <>
@@ -53,20 +70,25 @@ export default function Login() {
                   value={form.email}
                   onChange={handleChange}
                   required
+                  autoComplete="true"
                 />
                 <Form.Label>Email</Form.Label>
               </Form.Group>
-              
+
               <Form.Group className="form-custom" controlId="password">
-                <Form.Control
-                  type="password"
-                  placeholder="Enter your password ..."
-                  value={form.password}
-                  onChange={handleChange}
-                  required
-                  minLength="8"
-                />
-                <Form.Label>Password</Form.Label>
+                <div className="password-box">
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter your password ..."
+                    value={form.password}
+                    onChange={handleChange}
+                    required
+                    minLength="8"
+                    ref={passwordFieldRef}
+                  />
+                  <i className="password-toggle-icon fa fa-eye" ref={togglePasswordRef} onClick={handleTogglePassword}></i>
+                  <Form.Label>Password</Form.Label>
+                </div>
               </Form.Group>
 
               <button className="btn btn-primary" type="submit">Login</button>

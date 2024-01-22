@@ -1,25 +1,46 @@
 import axios from "axios";
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { Table } from "react-bootstrap";
 import Cookies from "universal-cookie";
-import { baseURl, USERS } from "../../constants/API";
-import Logout from "../auth/Logout";
+import { baseURL, USERS } from "../../constants/API";
+import { Axios } from "../../constants/Axios";
 
 export default function Users() {
+  const [users, setUsers] = useState([]);
   const cookie = new Cookies();
   const token = cookie.get('e-commerce');
+
   useEffect(() => {
-    const response = axios.get(`${baseURl}/${USERS}`, {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    })
-      .then(data => console.log(data))
+    // const response = axios.get(`${baseURL}/${USERS}`, {headers: {Authorization: 'Bearer ' + token}})
+    Axios.get(`/${USERS}`)
+      .then(result => setUsers(result.data))
       .catch((error) => console.log(error));
   }, []);
+
   return (
-    <>
-      <h1>Users page</h1>
-      <Logout />
-    </>
+    <div className="users-table bg-white p-2">
+      <h1>Users Page</h1>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            users.map((user,index)=>(
+              <tr key={index}>
+                <td>{index+1}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </Table>
+    </div>
   );
 }
