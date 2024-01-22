@@ -10,8 +10,8 @@ export default function RequireAuth() {
   // to secure authentication send token to backend and get the user
   const [user, setUser] = useState("");
 
-  // const cookie = new Cookies();
-  // const token = cookie.get('e-commerce');
+  const cookie = new Cookies();
+  const token = cookie.get('e-commerce');
 
   const navigate = useNavigate()
 
