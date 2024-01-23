@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 import { baseURL } from "./API";
 
 const cookie = new Cookies();
-const token = cookie.get("e-commerce");
+const token = cookie.get('e-commerce');
 
 export const Axios = axios.create({
   baseURL: baseURL,

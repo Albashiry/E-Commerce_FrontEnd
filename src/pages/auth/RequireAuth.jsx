@@ -18,7 +18,7 @@ export default function RequireAuth() {
   useEffect(() => {
     // axios.get(`${baseURL}/${USER}`, {headers: {Authorization: `Bearer ${token}`}})
     Axios.get(`/${USER}`)
-    .then(data => setUser(data))
+    .then(result => setUser(result.data))
     .catch(() => navigate('/login', { replace: true }));
   }, []);
 
