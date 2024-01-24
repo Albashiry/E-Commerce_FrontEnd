@@ -30,7 +30,7 @@ export default function Login() {
       });
       const token = response.data.token;
       cookie.set("e-commerce", token);
-      navigate('/dashboard/users', { replace: true }); // window.location.pathname = "/users";
+      window.location.pathname = "/dashboard";
     }
     catch (error) {
       (error.response.status === 401) ? setErr("Wrong email or password") : setErr("Internal server error");

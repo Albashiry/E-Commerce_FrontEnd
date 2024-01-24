@@ -5,8 +5,9 @@ import Cookies from "universal-cookie";
 import Loading from "../../components/Loading";
 import { baseURL, USER } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
+import Error403 from "./403";
 
-export default function RequireAuth() {
+export default function RequireAuth({allowedRole}) {
   // to secure authentication send token to backend and get the user
   const [user, setUser] = useState("");
 
@@ -18,9 +19,13 @@ export default function RequireAuth() {
   useEffect(() => {
     // axios.get(`${baseURL}/${USER}`, {headers: {Authorization: `Bearer ${token}`}})
     Axios.get(`/${USER}`)
-    .then(result => setUser(result.data))
-    .catch(() => navigate('/login', { replace: true }));
+      .then(result => setUser(result.data))
+      .catch(() => navigate('/login', { replace: true }));
   }, []);
 
-  return token ? (user === "" ? <Loading /> : <Outlet />) : <Navigate to={'/login'} replace={true} />;
+  return (
+    token
+      ? (user === "" ? <Loading /> : (allowedRole.includes(user.role) ? <Outlet /> : <Error403 role={user.role} />))
+      : <Navigate to={'/login'} replace={true} />
+  );
 }

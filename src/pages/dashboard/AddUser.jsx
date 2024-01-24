@@ -1,41 +1,24 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import Loading from "../../components/Loading";
 import { USER } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
 
-export default function UserUpdate() {
+export default function AddUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
-  const [disable, setDisable] = useState(true);
+  const [role, setRole] = useState("2001");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
-
-  const id = Number(window.location.pathname.replace("/dashboard/users/", ""));
-
-  useEffect(() => {
-    setLoading(true);
-    Axios.get(`${USER}/${id}`)
-      .then(result => {
-        setName(result.data.name);
-        setEmail(result.data.email);
-        setRole(result.data.role);
-        setLoading(false);
-      })
-      .then(() => setDisable(false))
-      .catch(() => navigate('/dasboard/users/nopage', { replace: true }));
-  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await Axios.post(`${USER}/edit/${id}`, {
+      await Axios.post(`${USER}/add`, {
         name: name,
         email: email,
+        password: password,
         role: role
       });
       window.location.pathname = '/dashboard/users';
@@ -47,6 +30,20 @@ export default function UserUpdate() {
       setLoading(false);
     }
   }
+
+  const passwordFieldRef = useRef(null);
+  const togglePasswordRef = useRef(null);
+  const handleTogglePassword = () => {
+    if (passwordFieldRef.current.type === 'password') {
+      passwordFieldRef.current.type = 'text';
+      togglePasswordRef.current.classList.remove("fa-eye");
+      togglePasswordRef.current.classList.add("fa-eye-slash");
+    } else {
+      passwordFieldRef.current.type = 'password';
+      togglePasswordRef.current.classList.remove("fa-eye-slash");
+      togglePasswordRef.current.classList.add("fa-eye");
+    }
+  };
 
   return (
     <>
@@ -64,7 +61,7 @@ export default function UserUpdate() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="email">
-          <Form.Label>User Name</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="name@example.com"
@@ -73,6 +70,21 @@ export default function UserUpdate() {
             autoComplete="true"
             required
           />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <div className="password-box">
+            <Form.Control
+              type="password"
+              placeholder="Enter your password ..."
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength="8"
+              ref={passwordFieldRef}
+            />
+            <i style={{ position: 'absolute', right: '2%' }} className="fa fa-eye" ref={togglePasswordRef} onClick={handleTogglePassword}></i>
+          </div>
         </Form.Group>
         <Form.Group className="mb-3" controlId="role">
           <Form.Label>Role</Form.Label>
@@ -87,7 +99,9 @@ export default function UserUpdate() {
             </optgroup>
           </Form.Select>
         </Form.Group>
-        <button disabled={disable} className="btn btn-primary">Save</button>
+        <button disabled={name.length < 1 || email.length < 1 || password < 8 || role === ''} className="btn btn-primary">
+          Save
+        </button>
       </Form>
     </>
   );
