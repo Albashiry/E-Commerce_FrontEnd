@@ -10,7 +10,9 @@ import RequireAuth from "./pages/auth/RequireAuth";
 import UserUpdate from "./pages/dashboard/UserUpdate";
 import AddUser from "./pages/dashboard/AddUser";
 import Writer from "./pages/dashboard/Writer";
+import Categories from "./pages/dashboard/Categories";
 import Error404 from "./pages/auth/404";
+import RequireBack from "./pages/auth/RequireBack";
 
 function App() {
   return (
@@ -18,16 +20,21 @@ function App() {
       <Routes>
         {/* public routes */}
         <Route exact path='/' element={<HomePage />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
+        <Route element={<RequireBack />}>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+        </Route>
         <Route path="/auth.google.callback" element={<GoogleCallBack />} />
         {/* protected routes */}
-        <Route element={<RequireAuth allowedRole={['1995','1996']}/>}>
+        <Route element={<RequireAuth allowedRole={['1995', '1996', "1999"]} />}>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route element={<RequireAuth allowedRole={['1995']} />}>
               <Route path="users" element={<Users />} />
               <Route path="users/:id" element={<UserUpdate />} />
               <Route path="user/add" element={<AddUser />} />
+            </Route>
+            <Route element={<RequireAuth allowedRole={['1995', '1999']} />}>
+              <Route path="categories" element={<Categories />} />
             </Route>
             <Route element={<RequireAuth allowedRole={['1995', '1996']} />}>
               <Route path="writer" element={<Writer />} />

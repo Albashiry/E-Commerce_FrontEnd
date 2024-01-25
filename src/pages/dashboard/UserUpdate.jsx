@@ -33,7 +33,7 @@ export default function UserUpdate() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await Axios.post(`${USER}/edit/${id}`, {
+      await Axios.post(`${USER}/edit/${id}`, {
         name: name,
         email: email,
         role: role
@@ -84,6 +84,7 @@ export default function UserUpdate() {
               <option value="1995">Admin</option>
               <option value="2001">User</option>
               <option value="1996">Writer</option>
+              <option value="1999">Product Manager</option>
             </optgroup>
           </Form.Select>
         </Form.Group>

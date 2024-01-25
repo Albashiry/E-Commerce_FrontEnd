@@ -7,7 +7,7 @@ import "./assets/styles/button.css";
 import "./assets/styles/loading.css";
 import "./assets/styles/alerts.css";
 import "./assets/styles/google.css";
-import "./pages/auth/auth.css";
+import "./assets/styles/auth.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/fontawesome/all.min.css";
 import MenuContext from "./constants/MenuContext";

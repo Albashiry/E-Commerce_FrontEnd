@@ -29,8 +29,10 @@ export default function Login() {
         password: form.password
       });
       const token = response.data.token;
+      const role = response.data.user.role;
+      const go = role==='1995'?'users':'writer';
       cookie.set("e-commerce", token);
-      window.location.pathname = "/dashboard";
+      navigate(`/dashboard/${go}`);      // window.location.pathname = `/dashboard/${go}`;
     }
     catch (error) {
       (error.response.status === 401) ? setErr("Wrong email or password") : setErr("Internal server error");
