@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import Loading from "../../components/Loading";
 import { baseURL, LOGIN } from "../../constants/API";
@@ -12,7 +11,11 @@ export default function Login() {
 
   const [loading, setLoadig] = useState(false);
 
-  const navigate = useNavigate();
+  // handle focus
+  const focusRef = useRef();
+  useEffect(() => focusRef.current.focus(), []);
+
+  // const navigate = useNavigate();
 
   const cookie = new Cookies();
 
@@ -30,9 +33,10 @@ export default function Login() {
       });
       const token = response.data.token;
       const role = response.data.user.role;
-      const go = role==='1995'?'users':'writer';
+      const go = role === '1995' ? 'users' : 'writer';
       cookie.set("e-commerce", token);
-      navigate(`/dashboard/${go}`);      // window.location.pathname = `/dashboard/${go}`;
+      // navigate(`/dashboard/${go}`);
+      window.location.pathname = `/dashboard/${go}`;
     }
     catch (error) {
       (error.response.status === 401) ? setErr("Wrong email or password") : setErr("Internal server error");
@@ -73,6 +77,7 @@ export default function Login() {
                   onChange={handleChange}
                   required
                   autoComplete="true"
+                  ref={focusRef}
                 />
                 <Form.Label>Email</Form.Label>
               </Form.Group>

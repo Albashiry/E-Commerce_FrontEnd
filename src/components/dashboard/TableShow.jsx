@@ -14,8 +14,8 @@ function RoleLabel(props) {
   }
 }
 
-export default function TableShow({ header, data, handleDelete, currentUser = false }) {
-  
+export default function TableShow({ header, data, handleDelete, currentUser = { name: '' } }) {
+
   // async function handleDelete(id) {
   //   try {
   //     await Axios.delete(`${delet}/${id}`);
@@ -30,7 +30,7 @@ export default function TableShow({ header, data, handleDelete, currentUser = fa
       <thead>
         <tr>
           <th>id</th>
-          {header.map((item, index) => <th key={index}>{item.name}</th>)}
+          {header.map((headerItem, index) => <th key={index}>{headerItem.name}</th>)}
           <th>Action</th>
         </tr>
       </thead>
@@ -38,25 +38,28 @@ export default function TableShow({ header, data, handleDelete, currentUser = fa
       <tbody>
         {data.length === 0
           ? <tr><td className="text-center" colSpan="12">Loading...</td></tr>
-          : data.map((item, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
+          : data.map((row, rowId) => (
+            <tr key={rowId}>
+              <td>{rowId + 1}</td>
 
-              {header.map((element, ndx) => (
+              {header.map((item, ndx) => (
                 <td key={ndx}>
-                  {<RoleLabel role={item[element.key]} />}
-                  {item[element.key] === currentUser.name && <span style={{ color: 'red' }}> (You)</span>}
+                  {item.key === 'image'
+                    ? <img src={row[item.key]} alt={item.key} height="100" />
+                    : <RoleLabel role={row[item.key]} />
+                  }
+                  {row[item.key] === currentUser.name && <span style={{ color: 'red' }}> (You)</span>}
                 </td>
               ))}
 
               <td>
                 <div className="d-flex align-items-center gap-3">
-                  <Link to={`${item.id}`}>
+                  <Link to={`${row.id}`}>
                     <FontAwesomeIcon icon={faPenToSquare} />
                   </Link>
-                  {currentUser.name !== item.name &&
+                  {currentUser.name !== row.name &&
                     <FontAwesomeIcon
-                      onClick={() => handleDelete(item.id)}
+                      onClick={() => handleDelete(row.id)}
                       color={"red"}
                       icon={faTrash}
                       cursor={"pointer"}

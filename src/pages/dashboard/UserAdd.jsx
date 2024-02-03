@@ -1,15 +1,19 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import Loading from "../../components/Loading";
 import { USER } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
 
-export default function AddUser() {
+export default function UserAdd() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("2001");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // handle focus
+  const focusRef = useRef();
+  useEffect(() => focusRef.current.focus(), []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -58,6 +62,7 @@ export default function AddUser() {
             onChange={(e) => setName(e.target.value)}
             autoComplete="true"
             required
+            ref={focusRef}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="email">

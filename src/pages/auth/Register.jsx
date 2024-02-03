@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -12,6 +12,10 @@ export default function Register() {
 
   // Loading
   const [loading, setLoadig] = useState(false);
+
+  // handle focus
+  const focusRef = useRef();
+  useEffect(() => focusRef.current.focus(), []);
 
   const navigate = useNavigate();
 
@@ -70,6 +74,7 @@ export default function Register() {
                   onChange={handleChange}
                   required
                   autoComplete="true"
+                  ref={focusRef}
                 />
                 <Form.Label>Name</Form.Label>
               </Form.Group>

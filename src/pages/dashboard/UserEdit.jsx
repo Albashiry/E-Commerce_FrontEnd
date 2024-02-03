@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import Loading from "../../components/Loading";
 import { USER } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
 
-export default function UserUpdate() {
+export default function UserEdit() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -14,7 +14,8 @@ export default function UserUpdate() {
 
   const navigate = useNavigate();
 
-  const id = Number(window.location.pathname.replace("/dashboard/users/", ""));
+  // const id = Number(window.location.pathname.replace("/dashboard/users/", ""));
+  const {id} = useParams(); //const id = useParams().id;
 
   useEffect(() => {
     setLoading(true);
@@ -26,7 +27,7 @@ export default function UserUpdate() {
         setLoading(false);
       })
       .then(() => setDisable(false))
-      .catch(() => navigate('/dasboard/users/nopage', { replace: true }));
+      .catch(() => navigate('/dashboard/users/nopage', { replace: true }));
   }, []);
 
   async function handleSubmit(e) {

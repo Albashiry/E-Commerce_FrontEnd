@@ -1,4 +1,37 @@
-.dashboard{
+.dashboard {
   min-height: 100vh;
   background-color: #f7f8fa;
+}
+
+.custom-progress {
+  width: 100%;
+  height: 9px;
+  border-radius: 4px;
+  background-color: rgb(214, 212, 212);
+}
+
+.custom-progress .progress-item {
+  position: relative;
+  background-color: #56b5ff;
+  height: 100%;
+  width: 0%;
+  display: block;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.custom-progress .progress-item:after {
+  content: attr(percent);
+  position: absolute;
+  top: -25px;
+  right: 0px;
+  background-color: rgb(116, 116, 116);
+  color: white;
+  width: 38px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 10px;
+  transition: 0.3s;
 }

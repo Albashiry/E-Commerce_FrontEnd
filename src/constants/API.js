@@ -9,4 +9,8 @@ export const USER = "user";
 
 export const GOOGLE_CALL_BACK = "auth/google/callback";
 
-export const CATEG = "categories";
+export const CATEGORIES = "categories";
+export const CATEGORY = "category";
+
+export const PRODUCTS = "products";
+export const PRODUCT = "product";
