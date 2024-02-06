@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { CATEGORIES, PRODUCT } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
 import "../../assets/styles/dashboard.css";
+import uploadIcon from "../../assets/images/upload.ico";
 
-export default function CategoryAdd() {
+export default function ProductAdd() {
   const [form, setForm] = useState({
     category: '',
     title: '',
@@ -31,9 +32,6 @@ export default function CategoryAdd() {
 
   const navigate = useNavigate();
 
-  const focusRef = useRef("");
-  const openImage = useRef(null);
-  const progress = useRef([]);
 
   // get all categories to fill the select items
   useEffect(() => {
@@ -54,8 +52,30 @@ export default function CategoryAdd() {
     (images.length > 0) && uploadImages();
   }, [images]);
 
+  const focusRef = useRef("");
+  const openImage = useRef(null);
+  const progress = useRef([]);
+
   const omit = useRef(0); // to delete the first option in select after the first change
   const j = useRef(-1);
+  const ids = useRef([]);
+
+
+  async function handleChange(e) {
+    omit.current.style.display = 'none';
+    // setForm({ ...form, [e.target.id]: e.target.value });   
+    setForm(form => ({ ...form, [e.target.id]: e.target.value })); // call useEffect that calls handleSubmitForm
+    setSent(true);
+  }
+
+  async function handleSubmitForm() {
+    try {
+      const response = await Axios.post(`${PRODUCT}/add`, dummyForm);
+      setId(response.data.id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const uploadImages = async () => {
     const formData = new FormData();
@@ -74,31 +94,28 @@ export default function CategoryAdd() {
             }
           }
         });
+        ids.current[j.current] = response.data.id; // get the image id to delete it
       } catch (error) {
         console.log(error);
       }
     }
   };
 
-  async function handleChange(e) {
-    omit.current.style.display = 'none';
-    // setForm({ ...form, [e.target.id]: e.target.value });   
-    setForm(form => ({ ...form, [e.target.id]: e.target.value }));
-    setSent(true);
-  }
-
-  async function handleSubmitForm(e) {
-    try {
-      const response = await Axios.post(`${PRODUCT}/add`, dummyForm);
-      setId(response.data.id);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async function handleImagesChange(e) {
     setImages(prevImages => [...prevImages, ...e.target.files]); // call uploadImages
     // const imagesAsFiles = e.target.files;
+  }
+
+  async function handleImageDelete(img, id) {
+    const findId = ids.current[id];
+    try {
+      const response = await Axios.delete(`product-img/${findId}`);
+      setImages(prev => prev.filter((image) => image !== img));
+      ids.current = ids.current.filter((id => id !== findId));
+      j.current--;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function handleEdit(e) {
@@ -221,7 +238,7 @@ export default function CategoryAdd() {
           style={{ border: !sent ? "2px dashed gray" : '2px dashed #0086fe', cursor: sent && 'pointer' }}
         >
           <img
-            src={require('../../assets/images/upload.ico')}
+            src={uploadIcon}
             alt="Upload Here" width={'100px'}
             style={{ filter: !sent && "grayscale(1)" }}
           />
@@ -231,16 +248,19 @@ export default function CategoryAdd() {
         <div className="d-flex flex-column my-3 gap-2">
           {images.map((img, index) => (
             <div key={index} className="border p-2 rounded">
-              <div className="d-flex align-items-center justify-content-start gap-2 p-2">
-                <img src={URL.createObjectURL(img)} alt={img.name} width={'150px'} height={'90px'} />
-                <div>
-                  <p className="mb-1">{img.name}</p>
-                  <p className="mb-1">
-                    {(img.size / 1024) < 1024
-                      ? (img.size / 1024).toFixed(2) + ' KB'
-                      : (img.size / (1024 * 1024)).toFixed(2) + ' MB'}
-                  </p>
+              <div className="d-flex align-items-center justify-content-between p-2">
+                <div className="d-flex align-items-center justify-content-between gap-2">
+                  <img src={URL.createObjectURL(img)} alt={img.name} width={'150px'} height={'90px'} />
+                  <div>
+                    <p className="mb-1">{img.name}</p>
+                    <p className="mb-1">
+                      {(img.size / 1024) < 1024
+                        ? (img.size / 1024).toFixed(2) + ' KB'
+                        : (img.size / (1024 * 1024)).toFixed(2) + ' MB'}
+                    </p>
+                  </div>
                 </div>
+                <Button onClick={() => handleImageDelete(img, index)} variant="danger">Delete</Button>
               </div>
               <div className="custom-progress">
                 <span

@@ -20,7 +20,7 @@ export default function Dashboard() {
           style={{
             top: window.windowSize < '768' ? '0' : '4rem',
             left: !menu.isOpen ? (window.windowSize < '768' ? '0px' : '70px') : (window.windowSize < '768' ? '0px' : '15rem'),
-            width: !menu.isOpen ? (window.windowSize < '768'? '100%' : 'calc(100% - 6.5rem)') : (window.windowSize < '768' ? '100%' : 'calc(100% - 17rem)')
+            width: !menu.isOpen ? (window.windowSize < '768' ? '100%' : 'calc(100% - 6.5rem)') : (window.windowSize < '768' ? '100%' : 'calc(100% - 17rem)')
           }}>
           <Outlet />
         </div>

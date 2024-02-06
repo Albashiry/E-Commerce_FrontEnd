@@ -6,7 +6,6 @@ import { Axios } from "../../constants/Axios";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
-  // const [deleteUser, setDeleteUser] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
 
   const header = [
@@ -33,20 +32,18 @@ export default function Users() {
       .then(result => setUsers(result.data))
       .catch((error) => console.log(error));
   }, []);
-// }, [deleteUser]);
 
   async function handleDelete(id) {
     try {
       await Axios.delete(`${USER}/${id}`);
-      // setDeleteUser(prev => !prev);
-      setUsers(prev => prev.filter(item => item.id!==id))
+      setUsers(prev => prev.filter(item => item.id !== id))
     } catch (error) {
       console.log(error);
     }
   }
 
   return (
-    <>
+    <div className="bg-white w-100 px-4 py-3 rounded shadow-sm">
       <div className="d-flex align-items-center justify-content-between">
         <h3>Users Page</h3>
         <Link to='/dashboard/user/add' className="btn btn-primary">
@@ -54,7 +51,12 @@ export default function Users() {
         </Link>
       </div>
 
-      <TableShow header={header} data={users} handleDelete={handleDelete} currentUser={currentUser} />
-    </>
+      <TableShow
+        header={header}
+        data={users}
+        handleDelete={handleDelete}
+        currentUser={currentUser}
+      />
+    </div>
   );
 }

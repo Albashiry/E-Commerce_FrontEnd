@@ -1,0 +1,32 @@
+.custom-pagination {
+  list-style-type: none;
+}
+
+.pagination-tag-anchor {
+  text-decoration: none;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  transform: 0.3s;
+  background: rgba(0, 0, 0, 0.1)
+}
+
+.previous a,
+.next a {
+  text-decoration: none;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  transform: 0.3s;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.pagination-tag-anchor:hover, .previous:hover, .next:hover {
+  background: rgba(0, 0, 255, 0.3);
+  border-radius: 5px;
+}

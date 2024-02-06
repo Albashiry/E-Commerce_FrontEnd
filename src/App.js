@@ -11,7 +11,7 @@ import UserEdit from "./pages/dashboard/UserEdit";
 import AddUser from "./pages/dashboard/UserAdd";
 import Writer from "./pages/dashboard/Writer";
 import Categories from "./pages/dashboard/Categories";
-import Error404 from "./pages/auth/404";
+import Error404 from "./pages/auth/Error404";
 import RequireBack from "./pages/auth/RequireBack";
 import CategoryAdd from "./pages/dashboard/CategoryAdd";
 import CategoryEdit from "./pages/dashboard/CategoryEdit";
@@ -44,7 +44,7 @@ function App() {
               <Route path="category/add" element={<CategoryAdd />} />
 
               <Route path="products" element={<Products />} />
-              {/* <Route path="products/:id" element={<ProductEdit />} /> */}
+              <Route path="products/:id" element={<ProductEdit />} />
               <Route path="product/add" element={<ProductAdd />} />
             </Route>
             <Route element={<RequireAuth allowedRole={['1995', '1996']} />}>

@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 import Loading from "../../components/Loading";
 import { baseURL, USER } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
-import Error403 from "./403";
+import Error403 from "./Error403";
 
 export default function RequireAuth({allowedRole}) {
   // to secure authentication send token to backend and get the user

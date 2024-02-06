@@ -4,7 +4,7 @@ import TableShow from "../../components/dashboard/TableShow";
 import { CATEGORIES, CATEGORY } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
 
-export default function Categories(){
+export default function Categories() {
   const [categories, setCategories] = useState([]);
 
   // get all categories
@@ -28,7 +28,7 @@ export default function Categories(){
   async function handleDelete(id) {
     try {
       await Axios.delete(`${CATEGORY}/${id}`);
-      setCategories(prev => prev.filter(item => item.id!==id))
+      setCategories(prev => prev.filter(item => item.id !== id))
     } catch (error) {
       console.log(error);
     }
@@ -42,8 +42,12 @@ export default function Categories(){
           Add Category
         </Link>
       </div>
-      
-      <TableShow header={header} data={categories} handleDelete={handleDelete} />
+
+      <TableShow
+        header={header}
+        data={categories}
+        handleDelete={handleDelete}
+      />
     </>
   );
 }

@@ -4,7 +4,7 @@ import TableShow from "../../components/dashboard/TableShow";
 import { PRODUCTS, PRODUCT } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
 
-export default function Products(){
+export default function Products() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -14,6 +14,10 @@ export default function Products(){
   }, []);
 
   const header = [
+    {
+      key: 'images',
+      name: 'Images'
+    },
     {
       key: 'title',
       name: 'Title'
@@ -35,7 +39,7 @@ export default function Products(){
   async function handleDelete(id) {
     try {
       await Axios.delete(`${PRODUCT}/${id}`);
-      setProducts(prev => prev.filter(item => item.id!==id))
+      setProducts(prev => prev.filter(item => item.id !== id))
     } catch (error) {
       console.log(error);
     }
@@ -49,8 +53,12 @@ export default function Products(){
           Add Product
         </Link>
       </div>
-      
-      <TableShow header={header} data={products} handleDelete={handleDelete} />
+
+      <TableShow
+        header={header}
+        data={products}
+        handleDelete={handleDelete}
+      />
     </>
   );
 }
