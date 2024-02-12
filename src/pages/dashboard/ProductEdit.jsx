@@ -30,8 +30,8 @@ export default function ProductEdit() {
     focusRef.current.focus();
     Axios.get(`/${CATEGORIES}`)
       .then(result => {
-        setCategories(result.data);
-        // setForm({ ...form, category: result.data[0].id }); // set initial catagory as the first one
+        setCategories(result.data.data);
+        setForm({ ...form, category: result.data.data[0].id }); // set initial catagory as the first one
       })
       .catch((error) => console.log(error));
   }, []);

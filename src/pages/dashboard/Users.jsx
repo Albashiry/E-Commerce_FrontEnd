@@ -7,6 +7,10 @@ import { Axios } from "../../constants/Axios";
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [totalData, setTotalData] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const header = [
     {
@@ -21,17 +25,31 @@ export default function Users() {
       key: "role",
       name: 'Role',
     },
+    {
+      key: 'created_at',
+      name: 'Created'
+    },
+    {
+      key: 'updated_at',
+      name: 'Last Login'
+    },
   ];
 
   useEffect(() => {
     Axios.get(`${USER}`).then(result => setCurrentUser(result.data));
   }, []);
 
+  // get all users
   useEffect(() => {
-    Axios.get(`/${USERS}`)
-      .then(result => setUsers(result.data))
-      .catch((error) => console.log(error));
-  }, []);
+    setLoading(true);
+    Axios.get(`/${USERS}?limit=${limit}&page=${page}`)
+      .then(result => {
+        setUsers(result.data.data);
+        setTotalData(result.data.total);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
+  }, [limit, page]);
 
   async function handleDelete(id) {
     try {
@@ -56,6 +74,14 @@ export default function Users() {
         data={users}
         handleDelete={handleDelete}
         currentUser={currentUser}
+        limit={limit}
+        setLimit={setLimit}
+        page={page}
+        setPage={setPage}
+        totalData={totalData}
+        loading={loading}
+        searchIn='name'
+        searchLink={USER}
       />
     </div>
   );

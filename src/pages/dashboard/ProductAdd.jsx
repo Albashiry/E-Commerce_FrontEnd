@@ -39,7 +39,7 @@ export default function ProductAdd() {
     Axios.get(`/${CATEGORIES}`)
       .then(result => {
         setCategories(result.data);
-        // setForm({ ...form, category: result.data[0].id }); // set initial catagory as the first one
+        setForm({ ...form, category: result.data[0].id }); // set initial catagory as the first one
       })
       .catch((error) => console.log(error));
   }, []);

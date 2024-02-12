@@ -101,7 +101,7 @@ export default function UserAdd() {
               <option value="1995">Admin</option>
               <option value="2001">User</option>
               <option value="1996">Writer</option>
-              <option value="1996">Product Manager</option>
+              <option value="1999">Product Manager</option>
             </optgroup>
           </Form.Select>
         </Form.Group>
