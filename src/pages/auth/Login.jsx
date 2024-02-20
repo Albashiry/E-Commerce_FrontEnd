@@ -64,7 +64,7 @@ export default function Login() {
     <>
       {loading && <Loading />}
       <div className="container">
-        <div className="row" style={{ height: '100vh' }}>
+        <div className="row" style={{ height: '100vh', marginTop: "10vh" }}>
           <Form className="form" onSubmit={handleSubmit} action="" method="post">
             <div className="inner-from">
               <h1>Login</h1>

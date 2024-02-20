@@ -7,7 +7,7 @@ import { Axios } from "../../constants/Axios";
 import { Menu } from "../../constants/MenuContext";
 import { links } from "../../constants/NavLinks";
 import { Window } from "../../constants/WindowContext";
-import "../../assets/styles/bars.css";
+import "../../assets/styles/dashboard/bars.css";
 
 export default function SideBar() {
   const menu = useContext(Menu);

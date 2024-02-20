@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { CATEGORIES, PRODUCT } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
-import "../../assets/styles/dashboard.css";
+import "../../assets/styles/dashboard/dashboard.css";
 import uploadIcon from "../../assets/images/upload.ico";
 
 export default function ProductEdit() {
@@ -30,7 +30,7 @@ export default function ProductEdit() {
     focusRef.current.focus();
     Axios.get(`/${CATEGORIES}`)
       .then(result => {
-        setCategories(result.data.data);
+        setCategories(result.data);
         setForm({ ...form, category: result.data.data[0].id }); // set initial catagory as the first one
       })
       .catch((error) => console.log(error));

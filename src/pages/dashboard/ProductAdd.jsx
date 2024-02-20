@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { CATEGORIES, PRODUCT } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
-import "../../assets/styles/dashboard.css";
+import "../../assets/styles/dashboard/dashboard.css";
 import uploadIcon from "../../assets/images/upload.ico";
 
 export default function ProductAdd() {

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../../assets/styles/error403.css";
+import "../../assets/styles/dashboard/error403.css";
 
 export default function Error403({ role }) {
   return (

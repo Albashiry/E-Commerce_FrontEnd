@@ -5,14 +5,15 @@ import App from "./App";
 import MenuContext from "./constants/MenuContext";
 import WindowContext from "./constants/WindowContext";
 import "./index.css";
-import "./assets/styles/button.css";
-import "./assets/styles/loading.css";
-import "./assets/styles/alerts.css";
-import "./assets/styles/google.css";
-import "./assets/styles/auth.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./assets/fontawesome/all.min.css";
 import "./custom.css";
+import "./assets/styles/dashboard/button.css";
+import "./assets/styles/dashboard/loading.css";
+import "./assets/styles/dashboard/alerts.css";
+import "./assets/styles/dashboard/google.css";
+import "./assets/styles/dashboard/auth.css";
+import "./assets/fontawesome/all.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

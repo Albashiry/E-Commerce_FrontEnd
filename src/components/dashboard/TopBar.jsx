@@ -6,7 +6,7 @@ import Cookies from "universal-cookie";
 import { LOGOUT, USER } from "../../constants/API";
 import { Axios } from "../../constants/Axios";
 import { Menu } from "../../constants/MenuContext";
-import "../../assets/styles/bars.css";
+import "../../assets/styles/dashboard/bars.css";
 
 export default function TopBar() {
   const menu = useContext(Menu);

@@ -18,18 +18,25 @@ import CategoryEdit from "./pages/dashboard/CategoryEdit";
 import Products from "./pages/dashboard/Products";
 import ProductAdd from "./pages/dashboard/ProductAdd";
 import ProductEdit from "./pages/dashboard/ProductEdit";
+import CategoriesShow from "./components/website/CategoriesShow";
+import Website from "./components/website/Website";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         {/* public routes */}
-        <Route exact path='/' element={<HomePage />} />
+        <Route element={<Website />} >
+          <Route exact path='/' element={<HomePage />} />
+          <Route exact path='/categories' element={<CategoriesShow />} />
+        </Route>
+        
         <Route element={<RequireBack />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
         </Route>
         <Route path="/auth.google.callback" element={<GoogleCallBack />} />
+
         {/* protected routes */}
         <Route element={<RequireAuth allowedRole={['1995', '1996', "1999"]} />}>
           <Route path="/dashboard" element={<Dashboard />}>

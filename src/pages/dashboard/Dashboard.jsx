@@ -4,7 +4,7 @@ import SideBar from "../../components/dashboard/SideBar";
 import TopBar from "../../components/dashboard/TopBar";
 import { Menu } from "../../constants/MenuContext";
 import { Window } from "../../constants/WindowContext";
-import "../../assets/styles/dashboard.css";
+import "../../assets/styles/dashboard/dashboard.css";
 
 export default function Dashboard() {
   const menu = useContext(Menu);

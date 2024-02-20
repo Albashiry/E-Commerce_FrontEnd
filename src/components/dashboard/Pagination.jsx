@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
-import "../../assets/styles/pagination.css";
+import "../../assets/styles/dashboard/pagination.css";
 
 
 export default function PaginatedItems({ itemsPerPage, TotalData, setPage }) {

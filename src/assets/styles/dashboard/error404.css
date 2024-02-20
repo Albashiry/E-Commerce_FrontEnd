@@ -9,7 +9,7 @@
 }
 
 .four-zero-four-bg {
-  background-image: url(../images/Nopage.gif);
+  background-image: url("../../images/Nopage.gif");
   height: 400px;
   background-position: center;
   background-repeat: no-repeat;
